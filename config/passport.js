@@ -16,8 +16,22 @@ module.exports = function(passport) {
         // User.findOrCreate({ spotifyId: profile.id }, function(err, user) {
         //   return done(err, user);
         // });
-        console.log(profile);
-        console.log(`Code: ${accessToken}`);
+        // console.log(profile);
+        console.log(profile._json);
+        console.log(profile._json.images[0].url);
+        // console.log(`Code: ${accessToken}`);
+        // const image = profile.photos[0];
+        // console.log(`image: ${image}`);
+        const newUser = {
+          // Unique spotifyID
+          spotifyID: profile.id,
+          // Email
+          email: profile._json.email,
+          // User display name
+          name: profile.displayName,
+          // Profile image
+          image: profile._json.images.url
+        };
       }
     )
   );

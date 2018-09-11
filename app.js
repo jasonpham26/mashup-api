@@ -1,14 +1,27 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const mongoose = require("mongoose");
 const passport = require("passport");
 // Load User model
 require("./models/User");
 
 // Load keys
-require("./config/keys");
+const keys = require("./config/keys");
 // Load passport config
 require("./config/passport")(passport);
+// Map global promise to avoid warning
+mongoose.Promise = global.Promise;
+// Mongoose connect
+mongoose
+  .connect(
+    keys.mongoURI,
+    {
+      useNewUrlParser: true
+    }
+  )
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 // MIDDLEWARES
 
 // ROUTES
