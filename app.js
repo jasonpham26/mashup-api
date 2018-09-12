@@ -23,6 +23,9 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 // MIDDLEWARES
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ROUTES
 // load routes

@@ -13,15 +13,7 @@ module.exports = function(passport) {
         proxy: true
       },
       (accessToken, refreshToken, expires_in, profile, done) => {
-        // User.findOrCreate({ spotifyId: profile.id }, function(err, user) {
-        //   return done(err, user);
-        // });
-        // console.log(profile);
-        console.log(profile._json);
-        console.log(profile._json.images[0].url);
-        // console.log(`Code: ${accessToken}`);
-        // const image = profile.photos[0];
-        // console.log(`image: ${image}`);
+        const token = accessToken;
         const newUser = {
           // Unique spotifyID
           spotifyID: profile.id,
@@ -30,9 +22,38 @@ module.exports = function(passport) {
           // User display name
           name: profile.displayName,
           // Profile image
-          image: profile._json.images.url
+          image: profile._json.images.url,
+          // accessToken
+          accessToken: token
         };
+
+        // Check if user is already exist
+        User.findOne({
+          spotifyID: profile.id
+        }).then(user => {
+          // If user exists
+          if (user) {
+            // since accesToken will be updated everytime we
+            // make a request, it is neccesary to update accessToken everytime
+            user.accessToken = newUser.accessToken;
+            user.save().then(user => {
+              console.log("accessToken updated");
+            });
+            done(null, user);
+          } else {
+            // Create a new user
+            new User(newUser).save().then(user => done(null, user));
+          }
+        });
       }
     )
   );
-};
+}; // passport.use() ends here
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => done(null, user));
+});
