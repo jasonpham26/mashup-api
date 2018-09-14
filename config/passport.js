@@ -47,13 +47,13 @@ module.exports = function(passport) {
         });
       }
     )
-  );
-}; // passport.use() ends here
+  ); // passport.use() ends here
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => done(null, user));
-});
+  passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => done(null, user));
+  });
+};

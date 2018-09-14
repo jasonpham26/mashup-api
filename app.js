@@ -22,6 +22,9 @@ mongoose
   )
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
+
+// Initial app
+const app = express();
 // MIDDLEWARES
 // passport middleware
 app.use(passport.initialize());
@@ -31,8 +34,6 @@ app.use(passport.session());
 // load routes
 const auth = require("./routes/auth");
 
-// Initial app
-const app = express();
 // Use routes
 app.use("/auth", auth);
 
