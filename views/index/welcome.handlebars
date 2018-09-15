@@ -1,0 +1,9 @@
+<h1>Welcome</h1>
+<p>Welcome to MusicEvents 1.0.0</p>
+<p>Sign in using your Spotify account to get upcoming detail about
+  music events of your favourite artists
+</p>
+{{#if user}}
+{{else}}
+<a class="btn green darken-1" href="/auth/spotify"><i class="fa fa-google left"></i> Login With Spotify</a>
+{{/if}}

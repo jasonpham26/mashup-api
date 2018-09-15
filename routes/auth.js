@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-
 router.get(
   "/spotify",
   passport.authenticate("spotify", {
@@ -13,7 +12,6 @@ router.get(
   "/spotify/callback",
   passport.authenticate("spotify", { failureRedirect: "/" }),
   (req, res) => {
-    // Successful authentication, redirect home.
     res.redirect("/dashboard");
   }
 );

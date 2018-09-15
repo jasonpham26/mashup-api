@@ -38,15 +38,16 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-// Cookie parser
+// express session middleware
 app.use(cookieParser());
 app.use(
   session({
     secret: "secret",
-    resave: false,
+    resave: true,
     saveUninitialized: false
   })
 );
+
 // passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -69,7 +70,7 @@ const index = require("./routes/index");
 // Use routes
 app.use("/", index);
 app.use("/auth", auth);
-app.use("/spotify", auth);
+app.use("/spotify", spotify);
 
 // Port number
 const port = process.env.PORT || 5000;
