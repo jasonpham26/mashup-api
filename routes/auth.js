@@ -12,7 +12,7 @@ router.get(
   "/spotify/callback",
   passport.authenticate("spotify", { failureRedirect: "/" }),
   (req, res) => {
-    res.redirect("/dashboard");
+    res.redirect("/getArtists");
   }
 );
 

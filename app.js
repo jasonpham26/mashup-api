@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 // Load User model
 require("./models/User");
+require("./models/Artist");
 
 // Load keys
 const keys = require("./config/keys");
@@ -63,14 +64,14 @@ app.use(express.static(path.join(__dirname, "public")));
 // ROUTES --------------------------------------------
 // load routes
 const auth = require("./routes/auth");
-const spotify = require("./routes/spotify");
 const index = require("./routes/index");
+const artist = require("./routes/artist");
 
 // ---------------------------------------------------
 // Use routes
 app.use("/", index);
 app.use("/auth", auth);
-app.use("/spotify", spotify);
+app.use("/artist", artist);
 
 // Port number
 const port = process.env.PORT || 5000;

@@ -1,10 +1,10 @@
 const SpotifyStrategy = require("passport-spotify").Strategy;
 const mongoose = require("mongoose");
 const keys = require("./keys");
-const axios = require("axios");
 const request = require("request");
 // Load User Schema
 const User = mongoose.model("users");
+const Artist = mongoose.model("artists");
 module.exports = function(passport) {
   passport.use(
     new SpotifyStrategy(
@@ -15,12 +15,11 @@ module.exports = function(passport) {
         proxy: true
       },
       (accessToken, refreshToken, expires_in, profile, done) => {
-        // console.log(profile);
-        const token = "Bearer" + accessToken;
-        // const spotifyUrl = `https://api.spotify.com/v1/me/top/artists?limit=5" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ${token}`;
+        var token = accessToken;
         const spotifyUrl =
           "https://api.spotify.com/v1/me/top/artists?limit=5&offset=5";
 
+        // Get user top listen artists
         var options = {
           url: "https://api.spotify.com/v1/me/top/artists?limit=5",
           headers: {
@@ -30,26 +29,12 @@ module.exports = function(passport) {
           json: true
         };
 
-        request.get(options, (err, res, body) => {
-          console.log(body);
-          console.log(body.items[0].images);
-        });
+        // var url = `http://api.eventful.com/json/performers/search?app_key=${key}&keywords=${artistName}`;
+        // Get user favortie artists
 
-        // axios
-        //   .get(spotifyUrl, {
-        //     headers: {
-        //       Authorization: token
-        //     }
-        //   })
-        //   .then(res => {
-        //     if (response.data.status === "ZERO_RESULTS") {
-        //       throw new Error("Unable to find the address");
-        //     }
-        //     console.log(res);
-        //   })
-        //   .catch(e => {
-        //     console.log(e);
-        //   });
+        // request.get(url, (err, res, body) => {
+        //   console.log(temp);
+        // });
 
         const newUser = {
           // Unique spotifyID
@@ -60,32 +45,25 @@ module.exports = function(passport) {
           name: profile.displayName,
           // Profile image
           image: profile._json.images.url,
-          // accessToken
           accessToken: token
         };
-
-        // Check if user is already exist
-        // User.findOne({
-        //   spotifyID: profile.id
-        // }).then(user => {
-        //   // If user exists
-        //   if (user) {
-        //     if (user.accessToken !== token) {
-        //       user.accessToken = token;
-        //       user.save().then(() => {
-        //         console.log("accessToken updated!");
-        //         done(null, user);
-        //       });
-        //     }
-        //     // since accesToken will be updated everytime we
-        //     // make a request, it is neccesary to update accessToken everytime
-        //   } else {
-        //     // Create a new user
-        //     new User(newUser).save().then(user => {
-        //       done(null, user);
-        //     });
-        //   }
-        // });
+        //Check if user is already exist
+        User.findOne({
+          spotifyID: profile.id
+        }).then(user => {
+          // If user exists
+          if (user) {
+            user.accessToken = token;
+            user.save().then(user => {
+              done(null, user);
+            });
+          } else {
+            // Create a new user
+            new User(newUser).save().then(user => {
+              done(null, user);
+            });
+          }
+        });
       }
     )
   ); // passport.use() ends here

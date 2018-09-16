@@ -1,0 +1,26 @@
+<h1>Welcome {{user.name}}</h1>
+<h4>Your Favourite Artists</h4>
+{{#if artists}}
+<table class="striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each artists}}
+    <tr>
+      <td><img src="{{image}}" width="80" height="80"></td>
+      <td><a href="#">{{name}}</a></td>
+      <td>
+        <a class="btn left-align" href="/artist">View</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{else}}
+<p>You have not created any stories yet</p>
+{{/if}}
