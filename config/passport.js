@@ -16,26 +16,6 @@ module.exports = function(passport) {
       },
       (accessToken, refreshToken, expires_in, profile, done) => {
         var token = accessToken;
-        const spotifyUrl =
-          "https://api.spotify.com/v1/me/top/artists?limit=5&offset=5";
-
-        // Get user top listen artists
-        var options = {
-          url: "https://api.spotify.com/v1/me/top/artists?limit=5",
-          headers: {
-            Accept: "application/json",
-            Authorization: "Bearer " + accessToken
-          },
-          json: true
-        };
-
-        // var url = `http://api.eventful.com/json/performers/search?app_key=${key}&keywords=${artistName}`;
-        // Get user favortie artists
-
-        // request.get(url, (err, res, body) => {
-        //   console.log(temp);
-        // });
-
         const newUser = {
           // Unique spotifyID
           spotifyID: profile.id,

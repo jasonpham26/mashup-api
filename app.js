@@ -9,6 +9,7 @@ const passport = require("passport");
 // Load User model
 require("./models/User");
 require("./models/Artist");
+require("./models/Event");
 
 // Load keys
 const keys = require("./config/keys");
@@ -26,6 +27,8 @@ mongoose
   )
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
+
+mongoose.set("useCreateIndex", true);
 
 // Initial app
 const app = express();

@@ -24,25 +24,27 @@ router.get("/getArtists", ensureAuthenticated, (req, res) => {
     };
     request.get(topArtistsOption, (err, res, body) => {
       for (var i = 0; i < body.items.length; i++) {
-        const newArtist = {
+        let newArtist = {
           name: body.items[i].name,
           image: body.items[i].images[2].url,
+          events: [],
           user: req.user.id
         };
-        Artist.findOne({ name: newArtist.name }).then(artist => {
+        Artist.findOne({ name: body.items[i].name }).then(artist => {
           // If artist is not already exists
           if (artist) {
             console.log("Passed");
           } else {
             // Create new artist
-            new Artist(newArtist).save().then(artist => {
-              console.log("New Artist Added");
-            });
+            new Artist(newArtist).save();
           }
         });
       }
     });
-    res.redirect("/dashboard");
+    // Wait for the loop to finish
+    setTimeout(() => {
+      res.redirect("/dashboard");
+    }, 2800);
   });
 });
 

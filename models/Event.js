@@ -6,41 +6,27 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const ArtistSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  image: {
+const EventSchema = new Schema({
+  title: {
     type: String
   },
-  events: [
-    {
-      title: {
-        type: String
-      },
-      date: {
-        type: String
-      },
-      city: {
-        type: String
-      },
-      country: {
-        type: String
-      },
-      eventID: {
-        type: String
-      }
-    }
-  ],
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
+  date: {
+    type: String
   },
-  artistID: {
+  city: {
+    type: String
+  },
+  country: {
+    type: String
+  },
+  artist: {
+    type: Schema.Types.ObjectId,
+    ref: "artists"
+  },
+  eventID: {
     type: String
   }
 });
 
 // Create schema and collection
-mongoose.model("artists", ArtistSchema, "artists");
+mongoose.model("events", EventSchema, "events");

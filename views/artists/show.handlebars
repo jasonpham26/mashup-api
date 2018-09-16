@@ -1,0 +1,29 @@
+<h2>{{artist.name}} upcoming events</h2>
+{{#if artist.events}}
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>City</th>
+      <th>Country</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each artist.events}}
+    <tr>
+      <td><span class="dash-status">{{title}}</span></td>
+      <td><span class="dash-status">{{date}}</span></td>
+      <td><span class="dash-status">{{city}}</span></td>
+      <td><span class="dash-status">{{country}}</span></td>
+      <td>
+        <a class="btn left-align" href="/event/show/{{eventID}}">Detail</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{else}}
+<p>There is no event found for this artist</p>
+{{/if}}
