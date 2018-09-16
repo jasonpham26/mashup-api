@@ -15,6 +15,8 @@ require("./models/Event");
 const keys = require("./config/keys");
 // Load passport config
 require("./config/passport")(passport);
+// Handlebar helper
+const { initMap } = require("./helpers/hbs");
 // Map global promise to avoid warning
 mongoose.Promise = global.Promise;
 // Mongoose connect
@@ -37,6 +39,9 @@ const app = express();
 app.engine(
   "handlebars",
   exphbs({
+    helpers: {
+      initMap: initMap
+    },
     defaultLayout: "main"
   })
 );
@@ -51,6 +56,9 @@ app.use(
     saveUninitialized: false
   })
 );
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // passport middleware
 app.use(passport.initialize());
@@ -69,12 +77,14 @@ app.use(express.static(path.join(__dirname, "public")));
 const auth = require("./routes/auth");
 const index = require("./routes/index");
 const artist = require("./routes/artist");
+const event = require("./routes/event");
 
 // ---------------------------------------------------
 // Use routes
 app.use("/", index);
 app.use("/auth", auth);
 app.use("/artist", artist);
+app.use("/event", event);
 
 // Port number
 const port = process.env.PORT || 5000;

@@ -25,6 +25,15 @@ const EventSchema = new Schema({
   },
   eventID: {
     type: String
+  },
+  latitude: {
+    type: String
+  },
+  longitude: {
+    type: String
+  },
+  venue: {
+    type: String
   }
 });
 

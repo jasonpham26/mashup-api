@@ -13,16 +13,15 @@ function initMap(lat, long) {
   });
   var markers = [
     {
-      coords: { lat: 16.0645265, lng: 108.2090754 },
-      iconImage:
-        "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-      content: "<h1>Home</h1>"
-    },
-    {
-      coords: { lat: 16.0592007, lng: 108.1769167 },
-      content: "<h1>Hai Chau Da Nang</h1>"
+      coords: { lat: lat, lng: long }
     }
   ];
+
+  // Loop through markers
+  for (var i = 0; i < markers.length; i++) {
+    // Add marker
+    addMarker(markers[i]);
+  }
 }
 
 function addMarker(props) {

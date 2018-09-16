@@ -1,0 +1,17 @@
+<h1>Event Detail</h1>
+<div class="row">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{event.title}}</span>
+      <p>{{event.date}}</p>
+      <p>{{event.venue}}</p>
+      <p>{{event.city}}, {{event.country}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="map">
+    <img src="{{initMap event.latitude event.longitude}}" alt="">
+  </div>
+</div>
