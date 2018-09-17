@@ -6,9 +6,3 @@ module.exports = {
   eventfulKey: "bSsvjjbcbTQHs2MN",
   googleAPI: "AIzaSyC_qA2dX5abcDQrhtIok0BZ3bjOzOiqvZo"
 };
-
-// Event enpKJASpKg42TRmnllmVHMGjrGMWgiKi25UcxpOi
-// Accesstoken: p6S8GiSEBZA1sOkmpYYnR74vUP6anW
-// Eventful bSsvjjbcbTQHs2MN.
-// LastFM: 3781551c01bc86d18c4190da2af8e467
-// share secret: e3fe3b74495f3cf33436dc37d5c1b76d
