@@ -7,6 +7,8 @@ const keys = require("../config/keys");
 const request = require("request");
 const { ensureAuthenticated } = require("../helpers/auth");
 
+
+// Get detail about an event given an ID
 router.get("/:id", ensureAuthenticated, (req, res) => {
   const id = req.params.id;
   const eventDetailOptions = {
@@ -22,6 +24,7 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
       event.latitude = body.latitude;
       event.longitude = body.longitude;
       event.save().then(event => {
+        // Render show page
         res.render("events/show", {
           event: event
         });

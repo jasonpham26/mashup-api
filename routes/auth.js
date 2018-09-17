@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+
+
+// Login and specify scope
 router.get(
   "/spotify",
   passport.authenticate("spotify", {
@@ -8,6 +11,7 @@ router.get(
   })
 );
 
+// Callback handling
 router.get(
   "/spotify/callback",
   passport.authenticate("spotify", { failureRedirect: "/" }),
@@ -16,6 +20,7 @@ router.get(
   }
 );
 
+// Verification
 router.get("/verify", (req, res) => {
   if (req.user) {
     console.log(req.user);
@@ -24,6 +29,8 @@ router.get("/verify", (req, res) => {
   }
 });
 
+
+// Logout 
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");

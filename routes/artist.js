@@ -7,6 +7,8 @@ const keys = require("../config/keys");
 const request = require("request");
 const { ensureAuthenticated } = require("../helpers/auth");
 
+
+// Get ID for a specific artist
 router.get("/:id", ensureAuthenticated, (req, res) => {
   Artist.findOne({
     _id: req.params.id
@@ -54,6 +56,8 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+
+// Add upcoming events for a specific artist
 router.get("/show/:id", (req, res) => {
   Artist.findOne({ _id: req.params.id }).then(artist => {
     for (var i = 0; i < artist.events.length; i++) {

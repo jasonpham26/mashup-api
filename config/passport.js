@@ -4,7 +4,6 @@ const keys = require("./keys");
 const request = require("request");
 // Load User Schema
 const User = mongoose.model("users");
-const Artist = mongoose.model("artists");
 module.exports = function(passport) {
   passport.use(
     new SpotifyStrategy(
@@ -48,6 +47,8 @@ module.exports = function(passport) {
     )
   ); // passport.use() ends here
 
+
+  // Serialize and deserialize user
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });

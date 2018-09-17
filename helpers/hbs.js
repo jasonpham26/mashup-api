@@ -1,3 +1,4 @@
+// This file contains helper functions for handlebars
 const keys = require("../config/keys");
 module.exports = {
   initMap: function(lat, long) {

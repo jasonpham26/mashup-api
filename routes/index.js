@@ -6,10 +6,12 @@ const Artist = mongoose.model("artists");
 const request = require("request");
 const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 
+// Welcome page for guest
 router.get("/", ensureGuest, (req, res) => {
   res.render("index/welcome");
 });
 
+// Get artist after user log in
 router.get("/getArtists", ensureAuthenticated, (req, res) => {
   User.findOne({ _id: req.user.id }).then(user => {
     const token = user.accessToken;
@@ -48,6 +50,7 @@ router.get("/getArtists", ensureAuthenticated, (req, res) => {
   });
 });
 
+// Dashboard page
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
   // Find list of artists saved in database and then display on user dashboard
   Artist.find({ user: req.user.id }).then(artists => {
